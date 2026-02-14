@@ -2,6 +2,8 @@
 
 A modern, responsive personal portfolio website built with HTML, CSS, and JavaScript, showcasing projects, skills, and contact information.
 
+**🌐 Live Demo**: [https://moathhaimour.github.io/202182130-MoathHaimour-assignment1/](https://moathhaimour.github.io/202182130-MoathHaimour-assignment1/)
+
 ## 🌟 Features
 
 - **Responsive Design**: Fully responsive layout that works seamlessly on desktop, tablet, and mobile devices
@@ -42,7 +44,7 @@ assignment-1/
 1. **Clone the repository** (or download the ZIP file):
 
    ```bash
-   git clone https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
+   git clone https://github.com/MOATHHAIMOUR/202182130-MoathHaimour-assignment1.git
    ```
 
 2. **Navigate to the project directory**:
@@ -124,7 +126,7 @@ For detailed information about AI usage, see [AI Usage Report](docs/ai-usage-rep
 1. Push your code to GitHub
 2. Go to repository Settings → Pages
 3. Select the main branch as source
-4. Your site will be available at: `https://YOUR-USERNAME.github.io/YOUR-REPO-NAME/`
+4. Your site will be available at: `https://moathhaimour.github.io/202182130-MoathHaimour-assignment1/`
 
 ### Netlify / Vercel
 
@@ -153,9 +155,9 @@ This project is open source and available for educational purposes.
 
 ## 📧 Contact
 
-- **Email**: your.email@example.com
-- **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-- **GitHub**: [Your GitHub Profile](https://github.com/yourusername)
+- **Email**: s202182130@kfupm.edu.sa
+- **LinkedIn**: [LinkedIn Profile](https://linkedin.com/in/moathhaimour)
+- **GitHub**: [MOATHHAIMOUR](https://github.com/MOATHHAIMOUR)
 
 ---
 
