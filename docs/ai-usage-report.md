@@ -1,97 +1,79 @@
 # AI Usage Report
 
-## Assignment 1 - Personal Portfolio Website
+## Assignment 2 — Interactive Portfolio Features
 
-This report documents how I used AI tools to learn and get guidance while building this portfolio website.
+This report documents how I used AI tools to support the development of the new interactive features added in Assignment 2. All code was written by me after using AI as a learning and reference tool.
 
 ---
 
-## 1. Tools Used & Use Cases
+## 1. Tools Used & Specific Use Cases
 
 ### GitHub Copilot
 
-I used Copilot to ask questions about:
+I used Copilot inline suggestions while writing code inside VS Code:
 
-- How to structure HTML sections properly
-- CSS property names and syntax
-- JavaScript method names and event handling
+- **Project filter logic** — While typing the `applyFilters` function, Copilot suggested a `forEach`-based approach with `dataset` lookups. I reviewed the suggestion, compared it with my own approach, simplified it, and made sure it also handled the live search term correctly.
+- **CSS animations** — Copilot suggested `@keyframes spin` for the loading spinner. I accepted the structure and adjusted the timing and colours to match the existing design system.
+- **ARIA attributes** — Copilot suggested adding `role="tablist"` and `aria-selected` to the filter buttons. I accepted this because it improves accessibility and is correct per the WAI-ARIA spec.
 
-It provided autocomplete suggestions that I reviewed and modified as needed.
+Every Copilot suggestion I accepted was reviewed, tested in the browser, and either kept as-is or adapted before committing.
 
 ### ChatGPT
 
-I asked ChatGPT questions about:
+I used ChatGPT to ask questions and understand concepts before writing code:
 
-- "How do I make a responsive navigation bar?"
-- "What's the difference between CSS Grid and Flexbox?"
-- "How does localStorage work for saving theme preferences?"
-- "What regex pattern validates email addresses?"
-- "How do I implement smooth scrolling in JavaScript?"
-- "How should I structure the README and documentation files?"
-
-ChatGPT explained concepts and showed examples that I used as learning references to write my own code.
-
-**Documentation Assistance**: AI also helped me write the README and technical documentation by providing structure suggestions and helping me organize the content clearly.
+- **"How does the Fetch API work with async/await and error handling?"** — I asked this to understand `try/catch` with `fetch()`. ChatGPT explained the pattern; I then wrote my own `fetchQuote` function from scratch using that understanding.
+- **"How do I sanitise user input in JavaScript before saving to localStorage?"** — ChatGPT explained that stripping `<`, `>`, `"`, `'`, and `&` prevents stored XSS. I implemented `safeName = name.replace(/[<>"'&]/g, "")` accordingly.
+- **"What is the difference between display:none and visibility:hidden when toggling elements via JavaScript?"** — Helped me decide to use `style.display` toggling for the quote/loading states.
+- **"What is a loading spinner animation in CSS?"** — Used the explanation to write the `.spinner` keyframe animation myself.
 
 ---
 
-## 2. Benefits & Challenges
+## 2. What I Modified vs What AI Suggested
 
-### Benefits
-
-- Faster learning by getting quick explanations of concepts
-- Understanding best practices through examples
-- Learning proper syntax and methods
-- Getting unstuck when facing errors
-
-### Challenges
-
-- Sometimes explanations were too generic
-- Had to ask follow-up questions for clarity
-- Needed to test and verify information independently
-- Had to adapt explanations to my specific needs
+| Feature               | AI Input                                   | My Contribution                                                             |
+| --------------------- | ------------------------------------------ | --------------------------------------------------------------------------- |
+| Project filter tabs   | Copilot suggested `dataset.filter` pattern | Added category+search combining logic; wrote the empty-state message        |
+| Live search           | Copilot autocompleted `includes()` check   | Extended to search both title and description; debouncing via `input` event |
+| Fetch quote           | ChatGPT explained async/await pattern      | Wrote full function: loading state, error state, `finally` cleanup          |
+| Personalised greeting | My own idea                                | Entire feature written by me; used Copilot for minor syntax completion only |
+| CSS animations        | Copilot suggested `@keyframes spin`        | Added `slideInLeft` and adjusted `fadeInUp` delays myself                   |
+| Input sanitisation    | ChatGPT explained the approach             | Implemented the regex replacement myself                                    |
 
 ---
 
-## 3. Learning Outcomes
+## 3. Benefits of AI Use in This Assignment
 
-### Technical Skills
+- Quickly understood the `fetch` + `async/await` + error handling pattern without reading multiple documentation pages
+- Copilot's inline suggestions sped up boilerplate writing (event listener wiring, `querySelectorAll` loops)
+- ChatGPT helped me validate my own approach and discover the ARIA attribute improvements
 
-- Learned HTML5 semantic elements and structure
-- Understood CSS Grid and Flexbox for layouts
-- Practiced JavaScript event handling and DOM manipulation
-- Implemented form validation and localStorage
-- Created responsive designs with media queries
+## 4. Challenges & How I Addressed Them
 
-### Problem-Solving
-
-- Learned to break down complex features into smaller tasks
-- Practiced debugging by testing code step by step
-- Improved at researching and asking specific questions
-- Developed better understanding of how things work
+- Some Copilot suggestions assumed jQuery syntax — I rewrote those using vanilla DOM APIs
+- ChatGPT's first Fetch example did not handle `response.ok` — I added that check myself after noticing the gap
+- Had to test every piece of AI-assisted code manually in Chrome DevTools to confirm it behaved as expected
 
 ---
 
-## 4. Responsible Use & Modifications
+## 5. Responsible Use & Understanding
 
-I used AI tools responsibly by:
+I am fully able to explain every line of code in this project:
 
-- Asking questions to understand concepts, not just copy code
-- Writing my own code based on what I learned
-- Testing all features to ensure they work correctly
-- Modifying and customizing based on my needs
-- Making sure I understood everything I implemented
-- Using AI suggestions for documentation structure while reviewing and adapting the content
+- I understand how `applyFilters` iterates over cards and combines the category and search filters
+- I understand why `safeName.replace(/[<>"'&]/g, "")` prevents stored XSS in `localStorage`
+- I understand the sequence of UI state changes (`quoteLoading` → `quoteText`/`quoteError`) in `fetchQuote`
+- I understand how the `IntersectionObserver`-style scroll reveal works via `getBoundingClientRect().top < window.innerHeight`
 
-All code in this project was written by me after learning from AI explanations and examples. Documentation was structured with AI assistance but reflects my actual work and learning process.
+AI supported my learning — it did not replace my thinking or writing.
 
 ---
 
-## 5. Conclusion
+## 6. Conclusion
 
-AI tools helped me learn faster by providing explanations and examples when I had questions. Instead of spending hours searching documentation, I could ask specific questions and get quick guidance. However, I still had to write, test, and understand all the code myself. This combination of AI-assisted learning and hands-on practice helped me build this portfolio effectively while developing real skills.
+For Assignment 2, AI tools were most useful for explaining APIs I had not used before (`fetch`, `async/await`) and for surfacing accessibility improvements I might otherwise have missed. Once I understood the concepts, I wrote the implementations myself, tested them, and adapted them to fit the existing codebase. The interactive features added in this assignment — filtering, live search, personalised greeting, and the quote widget — were all designed and implemented by me, with AI serving as a reference tool rather than an author.
 
 ---
 
-**Date**: February 14, 2026  
-**Course**: Software Engineering - Assignment 1
+**Date**: March 28, 2026  
+**Course**: Software Engineering — Assignment 2
