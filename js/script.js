@@ -102,7 +102,13 @@ filterButtons.forEach((btn) => {
     btn.setAttribute("aria-selected", "true");
 
     const filter = btn.dataset.filter;
-    applyFilters(filter, document.getElementById("projectSearch").value);
+    const activeLevel =
+      document.querySelector(".level-btn.active").dataset.level;
+    applyFilters(
+      filter,
+      document.getElementById("projectSearch").value,
+      activeLevel,
+    );
   });
 });
 
@@ -112,16 +118,18 @@ const projectSearchInput = document.getElementById("projectSearch");
 projectSearchInput.addEventListener("input", () => {
   const activeFilter =
     document.querySelector(".filter-btn.active").dataset.filter;
-  applyFilters(activeFilter, projectSearchInput.value);
+  const activeLevel = document.querySelector(".level-btn.active").dataset.level;
+  applyFilters(activeFilter, projectSearchInput.value, activeLevel);
 });
 
-function applyFilters(category, searchTerm) {
+function applyFilters(category, searchTerm, level = "all") {
   const term = searchTerm.trim().toLowerCase();
   let visibleCount = 0;
 
   projectCards.forEach((card) => {
     const matchesCategory =
       category === "all" || card.dataset.category === category;
+    const matchesLevel = level === "all" || card.dataset.level === level;
     const title = card
       .querySelector(".project-title")
       .textContent.toLowerCase();
@@ -131,7 +139,7 @@ function applyFilters(category, searchTerm) {
     const matchesSearch =
       !term || title.includes(term) || description.includes(term);
 
-    if (matchesCategory && matchesSearch) {
+    if (matchesCategory && matchesLevel && matchesSearch) {
       card.classList.remove("hidden");
       visibleCount++;
     } else {
@@ -283,6 +291,188 @@ window.addEventListener("load", () => {
     document.body.style.opacity = "1";
   }, 100);
 });
+
+// ===== Level Filter Buttons =====
+const levelButtons = document.querySelectorAll(".level-btn");
+
+levelButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    levelButtons.forEach((b) => {
+      b.classList.remove("active");
+      b.setAttribute("aria-selected", "false");
+    });
+    btn.classList.add("active");
+    btn.setAttribute("aria-selected", "true");
+
+    const level = btn.dataset.level;
+    const activeCategory =
+      document.querySelector(".filter-btn.active").dataset.filter;
+    applyFilters(activeCategory, projectSearchInput.value, level);
+  });
+});
+
+// ===== Project Sort =====
+const projectSort = document.getElementById("projectSort");
+// Capture original DOM order on load so "Default" can restore it
+const originalOrder = Array.from(document.querySelectorAll(".project-card"));
+
+projectSort.addEventListener("change", () => {
+  sortProjects(projectSort.value);
+});
+
+function sortProjects(criterion) {
+  const grid = document.getElementById("projectsGrid");
+
+  // Use a copy of originalOrder for "default", fresh live NodeList otherwise
+  const cards =
+    criterion === "default"
+      ? [...originalOrder]
+      : Array.from(document.querySelectorAll(".project-card"));
+
+  if (criterion === "name-asc") {
+    cards.sort((a, b) =>
+      a
+        .querySelector(".project-title")
+        .textContent.localeCompare(
+          b.querySelector(".project-title").textContent,
+        ),
+    );
+  } else if (criterion === "name-desc") {
+    cards.sort((a, b) =>
+      b
+        .querySelector(".project-title")
+        .textContent.localeCompare(
+          a.querySelector(".project-title").textContent,
+        ),
+    );
+  } else if (criterion === "date-asc") {
+    cards.sort((a, b) => new Date(a.dataset.date) - new Date(b.dataset.date));
+  } else if (criterion === "date-desc") {
+    cards.sort((a, b) => new Date(b.dataset.date) - new Date(a.dataset.date));
+  }
+
+  // Re-append in sorted order — moves existing nodes, no duplicates
+  cards.forEach((card) => grid.appendChild(card));
+}
+
+// ===== GitHub Repositories =====
+const GITHUB_USERNAME = "MOATHHAIMOUR";
+
+async function fetchGitHubRepos() {
+  const loadingEl = document.getElementById("githubLoading");
+  const errorEl = document.getElementById("githubError");
+  const gridEl = document.getElementById("reposGrid");
+
+  loadingEl.style.display = "flex";
+  errorEl.style.display = "none";
+  gridEl.style.display = "none";
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6&type=public`,
+    );
+    if (!res.ok)
+      throw new Error(`GitHub API responded with status ${res.status}`);
+
+    const repos = await res.json();
+    renderRepos(repos);
+    loadingEl.style.display = "none";
+    gridEl.style.display = "grid";
+  } catch (err) {
+    loadingEl.style.display = "none";
+    errorEl.style.display = "block";
+    console.error("GitHub repos fetch failed:", err);
+  }
+}
+
+function renderRepos(repos) {
+  const grid = document.getElementById("reposGrid");
+  grid.innerHTML = "";
+
+  repos.forEach((repo) => {
+    const card = document.createElement("article");
+    card.className = "repo-card reveal-card";
+
+    // Header: repo name link + language badge
+    const header = document.createElement("div");
+    header.className = "repo-header";
+
+    const nameLink = document.createElement("a");
+    // Validate URL is actually from github.com before using it
+    if (
+      typeof repo.html_url === "string" &&
+      repo.html_url.startsWith("https://github.com/")
+    ) {
+      nameLink.href = repo.html_url;
+    } else {
+      nameLink.href = "#";
+    }
+    nameLink.target = "_blank";
+    nameLink.rel = "noopener noreferrer";
+    nameLink.className = "repo-name-link";
+    nameLink.textContent = repo.name;
+    header.appendChild(nameLink);
+
+    if (repo.language) {
+      const lang = document.createElement("span");
+      lang.className = "repo-language";
+      lang.textContent = repo.language;
+      header.appendChild(lang);
+    }
+
+    // Description
+    const desc = document.createElement("p");
+    desc.className = "repo-description";
+    desc.textContent = repo.description || "No description provided.";
+
+    // Meta stats
+    const meta = document.createElement("div");
+    meta.className = "repo-meta";
+
+    [
+      `⭐ ${repo.stargazers_count}`,
+      `🍴 ${repo.forks_count}`,
+      `Updated: ${new Date(repo.updated_at).toLocaleDateString()}`,
+    ].forEach((text) => {
+      const span = document.createElement("span");
+      span.className = "repo-stat";
+      span.textContent = text;
+      meta.appendChild(span);
+    });
+
+    card.appendChild(header);
+    card.appendChild(desc);
+    card.appendChild(meta);
+    grid.appendChild(card);
+  });
+
+  // Trigger scroll-reveal for newly added cards
+  setTimeout(revealCards, 50);
+}
+
+// Auto-fetch on page load
+fetchGitHubRepos();
+
+// ===== Site Timer =====
+let secondsOnSite = 0;
+const siteTimerEl = document.getElementById("siteTimer");
+
+setInterval(() => {
+  secondsOnSite++;
+  if (siteTimerEl) {
+    const mins = Math.floor(secondsOnSite / 60);
+    const secs = secondsOnSite % 60;
+    siteTimerEl.textContent = `${mins}:${String(secs).padStart(2, "0")}`;
+  }
+}, 1000);
+
+// ===== Visit Counter =====
+const visitCount = parseInt(localStorage.getItem("visitCount") || "0") + 1;
+localStorage.setItem("visitCount", String(visitCount));
+const visitCounterEl = document.getElementById("visitCounter");
+if (visitCounterEl) {
+  visitCounterEl.textContent = `Visit #${visitCount}`;
+}
 
 // ===== Console Welcome Message =====
 console.log(

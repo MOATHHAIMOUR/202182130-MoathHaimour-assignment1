@@ -1,12 +1,226 @@
 # Technical Documentation
 
-## Portfolio Website — Assignment 2
+## Portfolio Website — Assignment 3
 
 ---
 
 ## Project Overview
 
-An interactive personal portfolio website built with HTML5, CSS3, and vanilla JavaScript (ES6+). Assignment 2 extends the Assignment 1 baseline by adding dynamic content filtering, live search, a public API integration, personalised user greetings stored in `localStorage`, scroll-reveal animations, and enhanced error/feedback handling.
+An advanced personal portfolio website built with HTML5, CSS3, and vanilla JavaScript (ES6+). Assignment 3 extends the Assignment 2 baseline by adding a live GitHub API integration, compound multi-criteria project filtering (category + level + search), project sorting, a site-elapsed timer, a visit counter, and improved state management.
+
+---
+
+## File Structure
+
+```
+id-name-assignment3/
+├── index.html                    # Main HTML file
+├── css/
+│   └── styles.css               # All styles, variables, animations
+├── js/
+│   └── script.js                # All interactive JS features
+├── assets/
+│   └── images/                  # Images folder
+├── docs/
+│   ├── ai-usage-report.md
+│   └── technical-documentation.md
+└── .gitignore
+```
+
+---
+
+## Technologies Used
+
+| Technology      | Purpose                                                    |
+| --------------- | ---------------------------------------------------------- |
+| HTML5           | Semantic markup, ARIA roles/labels                         |
+| CSS3            | Variables, Flexbox, Grid, `@keyframes`                     |
+| JavaScript ES6+ | DOM manipulation, Fetch API, `async/await`, `localStorage` |
+| GitHub REST API | Live public repository listing                             |
+| Quotable API    | Public REST API for random quotes                          |
+
+---
+
+## New Feature Implementation (Assignment 3)
+
+### 1. GitHub API Integration
+
+**Location**: `#github` section in `index.html`, `js/script.js` → `fetchGitHubRepos()` / `renderRepos()`
+
+Fetches the six most recently updated public repositories from the GitHub REST API:
+
+```
+GET https://api.github.com/users/MOATHHAIMOUR/repos?sort=updated&per_page=6&type=public
+```
+
+**State machine**:
+
+| State   | Elements shown                                    |
+| ------- | ------------------------------------------------- |
+| Loading | `#githubLoading` (spinner)                        |
+| Success | `#reposGrid` (article cards)                      |
+| Error   | `#githubError` (friendly message + fallback link) |
+
+**Security**: All repo data is rendered using `createElement` + `textContent` exclusively — no `innerHTML` with external content. Repository URLs are validated to start with `https://github.com/` before being assigned to `href`.
+
+```js
+// Safe rendering — textContent prevents XSS from API data
+nameLink.textContent = repo.name;
+desc.textContent = repo.description || "No description provided.";
+```
+
+---
+
+### 2. Compound Project Filtering (Category + Level + Search)
+
+**Location**: `js/script.js` → `applyFilters(category, searchTerm, level)`
+
+`applyFilters` now accepts a third parameter (`level`) and applies three independent conditions simultaneously:
+
+```js
+function applyFilters(category, searchTerm, level = "all") {
+  projectCards.forEach((card) => {
+    const matchesCategory =
+      category === "all" || card.dataset.category === category;
+    const matchesLevel = level === "all" || card.dataset.level === level;
+    const matchesSearch = !term || title.includes(term) || desc.includes(term);
+    card.classList.toggle(
+      "hidden",
+      !(matchesCategory && matchesLevel && matchesSearch),
+    );
+  });
+}
+```
+
+Each project card has three `data-` attributes: `data-category`, `data-level`, and `data-date`. All three filter controls call `applyFilters` with the current values of the other two controls so they compose correctly.
+
+---
+
+### 3. Project Sort
+
+**Location**: `js/script.js` → `sortProjects(criterion)`, `#projectSort` select
+
+The original DOM order is captured on page load:
+
+```js
+const originalOrder = Array.from(document.querySelectorAll(".project-card"));
+```
+
+`sortProjects` sorts a copy of the card array in memory and then re-appends each card to the grid. Re-appending a node that is already in the DOM moves it — no duplicates are created.
+
+| Criterion   | Sort key                                 |
+| ----------- | ---------------------------------------- |
+| `default`   | Restores `originalOrder` snapshot        |
+| `name-asc`  | `localeCompare` on `.project-title` text |
+| `name-desc` | Reversed `localeCompare`                 |
+| `date-asc`  | `data-date` parsed with `new Date()`     |
+| `date-desc` | Reversed `data-date`                     |
+
+---
+
+### 4. Site Timer
+
+**Location**: `js/script.js` — site timer block, `#siteTimer` element in footer
+
+A `setInterval` increments a seconds counter every 1 000 ms and formats the display as `M:SS`:
+
+```js
+let secondsOnSite = 0;
+setInterval(() => {
+  secondsOnSite++;
+  siteTimerEl.textContent = `${Math.floor(secondsOnSite / 60)}:${String(secondsOnSite % 60).padStart(2, "0")}`;
+}, 1000);
+```
+
+---
+
+### 5. Visit Counter
+
+**Location**: `js/script.js` — visit counter block, `#visitCounter` element in footer
+
+Uses `localStorage` to persist a running total of page visits from the same browser:
+
+```js
+const visitCount = parseInt(localStorage.getItem("visitCount") || "0") + 1;
+localStorage.setItem("visitCount", String(visitCount));
+visitCounterEl.textContent = `Visit #${visitCount}`;
+```
+
+---
+
+### 6. Retained from Assignment 2
+
+| Feature                       | Notes                                            |
+| ----------------------------- | ------------------------------------------------ |
+| Project category filter tabs  | Extended to accept level param in `applyFilters` |
+| Live project search           | Extended to pass active level                    |
+| Personalised visitor greeting | Unchanged                                        |
+| Quotable API quote widget     | Unchanged                                        |
+| Dark / light theme toggle     | Unchanged; persisted in `localStorage`           |
+| Scroll-reveal card animations | Triggered for GitHub repo cards after fetch      |
+| Contact form validation       | Unchanged                                        |
+
+---
+
+## State Management Summary
+
+| State              | Mechanism                                | Persistence          |
+| ------------------ | ---------------------------------------- | -------------------- |
+| Theme (dark/light) | `data-theme` on `<html>`, `localStorage` | Survives page reload |
+| Visitor name       | `localStorage`                           | Survives page reload |
+| Visit count        | `localStorage`                           | Survives page reload |
+| Category filter    | DOM `.filter-btn.active`                 | Session only         |
+| Level filter       | DOM `.level-btn.active`                  | Session only         |
+| Search term        | `<input>` value                          | Session only         |
+| Sort order         | `<select>` value                         | Session only         |
+| Site timer         | In-memory counter                        | Session only         |
+
+---
+
+## CSS Architecture
+
+All styles live in a single `styles.css` file, organised in sections:
+
+1. CSS Custom Properties (`:root` + dark theme override)
+2. Reset & Base
+3. Navigation
+4. Hero (greeting input group)
+5. Sections & Section Title
+6. About
+7. Projects (filter tabs, level tabs, sort control, search bar, category badges, empty state)
+8. Quote Section
+9. GitHub Section (repos grid, repo cards)
+10. Contact Form
+11. Footer (timer / visit counter meta)
+12. Animations (`fadeInUp`, `spin`, `slideInLeft`)
+13. Responsive Media Queries (768 px, 480 px)
+
+---
+
+## Security Considerations
+
+- GitHub API responses rendered via `createElement` + `textContent` — no `innerHTML` with untrusted data
+- GitHub repo `html_url` validated (`startsWith("https://github.com/")`) before use as `href`
+- User-supplied visitor names sanitised (`/[<>"'&]/g`) before `localStorage` storage and display
+- No secrets, API keys, or credentials in the codebase
+- All external links include `rel="noopener noreferrer"`
+
+---
+
+## Browser Compatibility
+
+Tested and verified on:
+
+- Chrome 120+
+- Firefox 121+
+- Safari 17+
+- Edge 120+
+
+---
+
+**Version**: 3.0.0
+**Last Updated**: April 18, 2026
+**Course**: Software Engineering — Assignment 3
 
 ---
 

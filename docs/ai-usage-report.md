@@ -1,8 +1,8 @@
 # AI Usage Report
 
-## Assignment 2 — Interactive Portfolio Features
+## Assignment 3 — Advanced Functionality
 
-This report documents how I used AI tools to support the development of the new interactive features added in Assignment 2. All code was written by me after using AI as a learning and reference tool.
+This report documents how I used AI tools to support the development of the advanced features added in Assignment 3. All code was reviewed, tested, and understood before being committed.
 
 ---
 
@@ -10,70 +10,70 @@ This report documents how I used AI tools to support the development of the new 
 
 ### GitHub Copilot
 
-I used Copilot inline suggestions while writing code inside VS Code:
+Used inline inside VS Code for code-completion assistance:
 
-- **Project filter logic** — While typing the `applyFilters` function, Copilot suggested a `forEach`-based approach with `dataset` lookups. I reviewed the suggestion, compared it with my own approach, simplified it, and made sure it also handled the live search term correctly.
-- **CSS animations** — Copilot suggested `@keyframes spin` for the loading spinner. I accepted the structure and adjusted the timing and colours to match the existing design system.
-- **ARIA attributes** — Copilot suggested adding `role="tablist"` and `aria-selected` to the filter buttons. I accepted this because it improves accessibility and is correct per the WAI-ARIA spec.
-
-Every Copilot suggestion I accepted was reviewed, tested in the browser, and either kept as-is or adapted before committing.
+- **GitHub API integration** — While typing `fetchGitHubRepos()`, Copilot suggested the `fetch` call structure and the `if (!res.ok)` guard. I reviewed the suggestion, added URL validation (`startsWith("https://github.com/")`) to prevent open-redirect risks, and replaced the `innerHTML` template approach with safe `createElement` + `textContent` calls to avoid XSS.
+- **Sort function** — Copilot autocompleted the `Array.prototype.sort` comparator pattern with `localeCompare`. I extended it to support four criteria (name-asc, name-desc, date-asc, date-desc) and added the `originalOrder` reset.
+- **Level filter** — Copilot suggested a `forEach` loop for the level buttons matching the existing filter-button pattern. I accepted the structure and wired it into the existing `applyFilters` call with the third `level` parameter.
+- **CSS repo cards** — Copilot suggested a flexbox card layout. I adapted the colour tokens and border-radius to match the existing design system.
 
 ### ChatGPT
 
-I used ChatGPT to ask questions and understand concepts before writing code:
+Used to understand concepts before writing code:
 
-- **"How does the Fetch API work with async/await and error handling?"** — I asked this to understand `try/catch` with `fetch()`. ChatGPT explained the pattern; I then wrote my own `fetchQuote` function from scratch using that understanding.
-- **"How do I sanitise user input in JavaScript before saving to localStorage?"** — ChatGPT explained that stripping `<`, `>`, `"`, `'`, and `&` prevents stored XSS. I implemented `safeName = name.replace(/[<>"'&]/g, "")` accordingly.
-- **"What is the difference between display:none and visibility:hidden when toggling elements via JavaScript?"** — Helped me decide to use `style.display` toggling for the quote/loading states.
-- **"What is a loading spinner animation in CSS?"** — Used the explanation to write the `.spinner` keyframe animation myself.
+- **"How do I safely render data from an external API without using innerHTML?"** — ChatGPT explained `createElement` + `textContent`. I applied this pattern throughout `renderRepos()` to avoid XSS from untrusted API data.
+- **"How do I store and restore the original DOM order when sorting a list?"** — ChatGPT explained capturing a snapshot array on page load. I implemented `const originalOrder = Array.from(...)` and used it in the `"default"` sort branch.
+- **"What is the GitHub REST API endpoint to list public repos sorted by update date?"** — Used to confirm the correct URL pattern and query parameters before writing the fetch call.
+- **"How can I track how long a user has been on a page?"** — ChatGPT explained `setInterval` with a seconds counter. I implemented the timer myself using `String.padStart(2,"0")` for clean MM:SS display.
 
 ---
 
 ## 2. What I Modified vs What AI Suggested
 
-| Feature               | AI Input                                   | My Contribution                                                             |
-| --------------------- | ------------------------------------------ | --------------------------------------------------------------------------- |
-| Project filter tabs   | Copilot suggested `dataset.filter` pattern | Added category+search combining logic; wrote the empty-state message        |
-| Live search           | Copilot autocompleted `includes()` check   | Extended to search both title and description; debouncing via `input` event |
-| Fetch quote           | ChatGPT explained async/await pattern      | Wrote full function: loading state, error state, `finally` cleanup          |
-| Personalised greeting | My own idea                                | Entire feature written by me; used Copilot for minor syntax completion only |
-| CSS animations        | Copilot suggested `@keyframes spin`        | Added `slideInLeft` and adjusted `fadeInUp` delays myself                   |
-| Input sanitisation    | ChatGPT explained the approach             | Implemented the regex replacement myself                                    |
+| Feature             | AI Input                               | My Contribution                                                       |
+| ------------------- | -------------------------------------- | --------------------------------------------------------------------- |
+| GitHub API fetch    | Copilot suggested basic fetch skeleton | Added URL validation, `createElement` safety pattern, error state UI  |
+| Repo card rendering | Copilot suggested innerHTML template   | Rewrote entirely using `createElement` + `textContent` for XSS safety |
+| Project sort        | Copilot autocompleted `localeCompare`  | Added all four sort criteria + `originalOrder` reset logic            |
+| Level filter        | Copilot suggested forEach pattern      | Wired into `applyFilters` with three-parameter signature              |
+| Site timer          | ChatGPT explained setInterval          | Wrote the full implementation with `padStart` formatting              |
+| Visit counter       | My own idea                            | Written entirely by me; AI not involved                               |
+| CSS repo cards      | Copilot suggested flexbox layout       | Adapted to match existing CSS variable system and dark mode           |
 
 ---
 
 ## 3. Benefits of AI Use in This Assignment
 
-- Quickly understood the `fetch` + `async/await` + error handling pattern without reading multiple documentation pages
-- Copilot's inline suggestions sped up boilerplate writing (event listener wiring, `querySelectorAll` loops)
-- ChatGPT helped me validate my own approach and discover the ARIA attribute improvements
+- Quickly confirmed the correct GitHub API endpoint and query parameters
+- Copilot sped up boilerplate (event listener wiring, array sorting patterns)
+- ChatGPT helped identify the XSS risk in the original `innerHTML` approach before it caused a problem
+- Copilot's CSS suggestions reduced time spent on card layout experimentation
 
 ## 4. Challenges & How I Addressed Them
 
-- Some Copilot suggestions assumed jQuery syntax — I rewrote those using vanilla DOM APIs
-- ChatGPT's first Fetch example did not handle `response.ok` — I added that check myself after noticing the gap
-- Had to test every piece of AI-assisted code manually in Chrome DevTools to confirm it behaved as expected
+- Copilot's first suggestion for `renderRepos` used `innerHTML` with template literals, which would have been a security risk with untrusted API content — I rewrote it using `createElement` and `textContent` throughout
+- ChatGPT's GitHub API example did not include public-only filtering (`type=public`) — I added that parameter after reading the official docs
+- The `originalOrder` sort-reset required capturing the node list _before_ any sorting could move nodes in the DOM — discovered this through manual testing and fixed by moving the snapshot line to the top of the module
+
+## 5. Learning Outcomes
+
+- Learned how to safely consume a third-party REST API (`fetch`, `async/await`, error handling, URL validation)
+- Understood the XSS risk of using `innerHTML` with external data and the correct mitigation
+- Practiced multi-criteria sort logic with `Array.prototype.sort` and `localeCompare`
+- Gained experience managing compound filter state (category + level + search term) in a single function
+
+## 6. Responsible Use & Modifications
+
+Every AI suggestion was:
+
+1. **Reviewed** — read line by line before acceptance
+2. **Tested** — verified in Chrome DevTools and checked in Firefox
+3. **Adapted** — the `innerHTML` render approach was completely rewritten; sort criteria were extended beyond the AI suggestion
+4. **Understood** — I can explain every line of code in this project
+
+AI served as a learning reference and productivity tool, not as a substitute for my own understanding or authorship.
 
 ---
 
-## 5. Responsible Use & Understanding
-
-I am fully able to explain every line of code in this project:
-
-- I understand how `applyFilters` iterates over cards and combines the category and search filters
-- I understand why `safeName.replace(/[<>"'&]/g, "")` prevents stored XSS in `localStorage`
-- I understand the sequence of UI state changes (`quoteLoading` → `quoteText`/`quoteError`) in `fetchQuote`
-- I understand how the `IntersectionObserver`-style scroll reveal works via `getBoundingClientRect().top < window.innerHeight`
-
-AI supported my learning — it did not replace my thinking or writing.
-
----
-
-## 6. Conclusion
-
-For Assignment 2, AI tools were most useful for explaining APIs I had not used before (`fetch`, `async/await`) and for surfacing accessibility improvements I might otherwise have missed. Once I understood the concepts, I wrote the implementations myself, tested them, and adapted them to fit the existing codebase. The interactive features added in this assignment — filtering, live search, personalised greeting, and the quote widget — were all designed and implemented by me, with AI serving as a reference tool rather than an author.
-
----
-
-**Date**: March 28, 2026  
-**Course**: Software Engineering — Assignment 2
+**Date**: April 18, 2026
+**Course**: Software Engineering — Assignment 3

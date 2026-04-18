@@ -793,6 +793,204 @@ section {
   color: #f8b4bc;
 }
 
+/* ===== Level Filter Tabs ===== */
+.level-tabs {
+  margin-top: -0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.level-btn {
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  border: 2px solid var(--secondary-color);
+  background: transparent;
+  color: var(--secondary-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: 0.9rem;
+}
+
+.level-btn:hover,
+.level-btn.active {
+  background: linear-gradient(
+    135deg,
+    var(--secondary-color),
+    var(--accent-color)
+  );
+  color: white;
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(118, 75, 162, 0.35);
+}
+
+/* ===== Sort Control ===== */
+.sort-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.sort-wrapper label {
+  font-weight: 600;
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+.sort-wrapper select {
+  padding: 0.45rem 0.9rem;
+  border-radius: 50px;
+  border: 2px solid var(--bg-secondary);
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition);
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23718096' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.25rem;
+}
+
+.sort-wrapper select:focus {
+  border-color: var(--primary-color);
+}
+
+/* ===== GitHub Section ===== */
+.github-section {
+  background-color: var(--bg-secondary);
+}
+
+.section-subtitle {
+  text-align: center;
+  color: var(--text-light);
+  margin-top: -2rem;
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+}
+
+.repos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.repo-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.repo-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+.repo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.repo-name-link {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: var(--transition);
+  word-break: break-word;
+}
+
+.repo-name-link:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+.repo-language {
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: white;
+  padding: 0.2rem 0.75rem;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.repo-description {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.repo-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.repo-stat {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.github-error {
+  text-align: center;
+  padding: 1.5rem;
+  color: #721c24;
+  background: #f8d7da;
+  border-radius: 12px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.github-error a {
+  color: #721c24;
+  font-weight: 700;
+  margin-left: 0.5rem;
+}
+
+[data-theme="dark"] .github-error {
+  background: #4a1520;
+  color: #f8b4bc;
+}
+
+[data-theme="dark"] .github-error a {
+  color: #f8b4bc;
+}
+
+/* ===== Footer Meta (Timer + Visit Counter) ===== */
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--text-light);
+  font-size: 0.85rem;
+}
+
+.meta-sep {
+  color: var(--text-light);
+  opacity: 0.5;
+}
+
 /* ===== Responsive Design ===== */
 @media (max-width: 768px) {
   .nav-links {
@@ -831,6 +1029,14 @@ section {
 
   .contact-content {
     grid-template-columns: 1fr;
+  }
+
+  .repos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sort-wrapper {
+    justify-content: center;
   }
 
   .footer .container {

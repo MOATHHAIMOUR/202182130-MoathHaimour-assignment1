@@ -1,23 +1,22 @@
-# Personal Portfolio Website — Assignment 2
+# Personal Portfolio Website — Assignment 3
 
-An improved version of my personal portfolio website, now featuring interactive filtering, live search, a public API integration, animated transitions, and enhanced user feedback — built with plain HTML, CSS, and JavaScript.
+An advanced personal portfolio website built with HTML, CSS, and vanilla JavaScript, featuring GitHub API integration, multi-criteria project filtering, project sorting, a live site timer, a visit counter, and full dark/light mode state management.
 
-**🌐 Live Demo**: [https://moathhaimour.github.io/202182130-MoathHaimour-assignment1/](https://moathhaimour.github.io/202182130-MoathHaimour-assignment1/)
+**🌐 Live Demo**: [https://moathhaimour.github.io/202182130-MoathHaimour-assignment3/](https://moathhaimour.github.io/202182130-MoathHaimour-assignment3/)
 
-## 🌟 What's New in Assignment 2
+## 🌟 What's New in Assignment 3
 
-- **Project Filter Tabs** — click All / Web / API / Tool to instantly filter the projects grid
-- **Live Project Search** — type to filter projects in real time; shows a friendly empty-state message when nothing matches
-- **Personalised Greeting** — visitors can type their name and receive a custom time-aware greeting, which is remembered across page visits using `localStorage`
-- **Daily Inspiration** — fetches a random quote from the [Quotable API](https://api.quotable.io) with a loading spinner, error fallback, and a "New Quote" button
-- **Scroll-reveal Animations** — cards fade and slide in as the user scrolls down the page
-- **CSS-only Transitions** — category badge colour coding, hover lift effects, and smooth button transitions
-- **Improved Form Feedback** — extended confirmation message and clearer error states
+- **GitHub API Integration** — Fetches and displays live public repositories from GitHub with repo name, description, language, star count, fork count, and last-updated date. Shows a friendly error fallback if the API is unavailable.
+- **Project Level Filter** — Filter the project grid by difficulty level: All Levels / Beginner / Advanced (combined with existing category and search filters).
+- **Project Sort** — Sort the project grid by name (A→Z / Z→A) or date (Oldest First / Newest First) using a dropdown control. "Default" restores the original order.
+- **Site Timer** — Displays how long the current visitor has been on the page, updating every second in the footer.
+- **Visit Counter** — Tracks and displays the total number of visits from the same browser using `localStorage`.
+- **Combined State Management** — Category filter, level filter, search query, sort order, dark/light theme, and visitor name are all managed and persisted independently.
 
 ## 📁 Project Structure
 
 ```
-assignment-2/
+id-name-assignment3/
 ├── README.md
 ├── index.html
 ├── css/
@@ -37,6 +36,7 @@ assignment-2/
 ### Prerequisites
 
 - A modern web browser (Chrome, Firefox, Safari, or Edge)
+- An internet connection (required for the GitHub API and Quote API)
 - No build tools or dependencies required
 
 ### Running Locally
@@ -44,7 +44,7 @@ assignment-2/
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/MOATHHAIMOUR/202182130-MoathHaimour-assignment2.git
+   git clone https://github.com/MOATHHAIMOUR/202182130-MoathHaimour-assignment3.git
    ```
 
 2. **Open the website**:
@@ -60,32 +60,36 @@ assignment-2/
 
    - Then visit `http://localhost:8000`
 
-> **Note**: The Quote API requires an internet connection. All other features work fully offline.
+> **Note**: The GitHub Repos section and Quote section require an internet connection. All other features (filters, sort, theme, timer, visit counter) work fully offline.
 
 ## 🤖 AI Integration Summary
 
-I used GitHub Copilot and ChatGPT to assist with specific parts of this project:
+I used **GitHub Copilot** and **ChatGPT** to assist with specific parts of this project:
 
-- Asked ChatGPT to explain the Fetch API and `async/await` error handling patterns, then wrote the quote-fetching logic myself
-- Used Copilot autocomplete suggestions while writing the filter and search functions; reviewed, adapted, and tested every suggestion before keeping it
-- Consulted ChatGPT for CSS animation syntax (keyframes, `transform` transitions) as a reference while authoring the styles
+- Asked ChatGPT how to safely render API data without `innerHTML` (XSS risk); applied `createElement` + `textContent` throughout `renderRepos()`
+- Used Copilot autocomplete for sort comparator patterns, extended to four criteria
+- Consulted ChatGPT to confirm the correct GitHub REST API endpoint and query parameters
+- Used Copilot for CSS card layout suggestions, then adapted to the existing design system
 
-All code was written, understood, and tested by me. AI tools served as a learning aid and reference — not a replacement for my own work.
+All code was written, reviewed, tested, and understood by me. AI served as a learning aid, not a replacement for my own work.
 
-For the complete AI usage breakdown, see [docs/ai-usage-report.md](docs/ai-usage-report.md).
+For the complete breakdown, see [docs/ai-usage-report.md](docs/ai-usage-report.md).
 
 ## ⚙️ Technical Stack
 
-- **HTML5** — Semantic markup, ARIA roles and labels for accessibility
-- **CSS3** — CSS variables, Flexbox, Grid, `@keyframes` animations
-- **JavaScript (ES6+)** — `async/await`, Fetch API, DOM manipulation, `localStorage`
-- **Quotable API** — Public REST API for random inspirational quotes
+| Technology      | Purpose                                                    |
+| --------------- | ---------------------------------------------------------- |
+| HTML5           | Semantic markup, ARIA roles/labels                         |
+| CSS3            | Variables, Flexbox, Grid, `@keyframes` animations          |
+| JavaScript ES6+ | `async/await`, Fetch API, DOM manipulation, `localStorage` |
+| GitHub REST API | Live public repository listing                             |
+| Quotable API    | Random inspirational quotes                                |
 
 ## 📱 Responsive Breakpoints
 
 | Breakpoint   | Description                         |
 | ------------ | ----------------------------------- |
-| > 768 px     | Desktop — multi-column grid         |
+| > 768 px     | Desktop — multi-column grids        |
 | 481 – 768 px | Tablet — adjusted font sizes        |
 | ≤ 480 px     | Mobile — single-column, stacked nav |
 
@@ -98,6 +102,13 @@ For the complete AI usage breakdown, see [docs/ai-usage-report.md](docs/ai-usage
 | Accent     | `#f093fb` Pink        |
 | Text       | `#2d3748` Dark Gray   |
 | Background | `#ffffff` White       |
+
+## 🔒 Security Notes
+
+- GitHub API responses are rendered with `createElement` + `textContent` — no `innerHTML` with untrusted data
+- GitHub repo URLs are validated to start with `https://github.com/` before being set as `href`
+- User input (visitor name) is sanitised before `localStorage` storage to prevent stored XSS
+- No credentials or secrets are embedded in the codebase
 
 ## 📖 Documentation
 
