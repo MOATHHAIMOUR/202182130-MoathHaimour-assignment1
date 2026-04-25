@@ -5,19 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Personal Portfolio - Showcasing my projects and skills"
+      content="Moath Haimour – Full Stack Developer specialising in ASP.NET Core, React, and Azure. Explore projects, skills, and contact info."
     />
-    <title>My Portfolio</title>
+    <title>Moath Haimour | Full Stack Developer</title>
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <!-- Navigation -->
     <nav class="navbar">
       <div class="container">
-        <div class="logo">My Portfolio</div>
-        <ul class="nav-links">
+        <div class="logo">Moath Haimour</div>
+        <button
+          class="hamburger"
+          id="hamburger"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
           <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
           <li><a href="#projects">Projects</a></li>
+          <li><a href="#education">Education</a></li>
           <li><a href="#quote">Inspiration</a></li>
           <li><a href="#github">GitHub</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -38,12 +48,17 @@
       <div class="container">
         <div class="hero-content">
           <h1 class="hero-title">
-            Hello, I'm <span class="highlight">Moath Mahmoud Haimour</span>
+            Hello, I'm <span class="highlight">Moath Haimour</span>
           </h1>
           <p class="hero-subtitle" id="greeting">Welcome to my portfolio!</p>
+          <p class="hero-typed" aria-label="Role">
+            <span id="typedText"></span
+            ><span class="typed-cursor" aria-hidden="true">|</span>
+          </p>
           <p class="hero-description">
-            A passionate developer creating innovative solutions and bringing
-            ideas to life through code.
+            Full-Stack Developer specialising in ASP.NET Core, Clean
+            Architecture, and React — building scalable, production-ready
+            systems.
           </p>
           <!-- Personalised greeting input -->
           <div class="greeting-input-group">
@@ -81,25 +96,99 @@
           </div>
           <div class="about-text">
             <p>
-              I'm a dedicated software engineering student passionate about
-              creating innovative web applications and learning new
-              technologies. My journey in tech began with a curiosity about how
-              things work, and it has evolved into a commitment to building
-              solutions that make a difference.
+              I'm a Full-Stack Developer with a strong backend focus, currently
+              pursuing a Bachelor's degree in Computer Science at King Fahd
+              University of Petroleum &amp; Minerals (KFUPM). I build scalable
+              systems using ASP.NET Core, Clean Architecture, and CQRS —
+              handling complex business workflows and high-performance APIs.
             </p>
             <p>
-              With a strong foundation in HTML, CSS, and JavaScript, I
-              continuously expand my skill set and stay updated with the latest
-              industry trends. I believe in writing clean, maintainable code and
-              creating user-friendly experiences.
+              I have hands-on experience with SQL Server, MongoDB, React,
+              TypeScript, Docker, and Azure deployments. I've shipped
+              production-style projects including a driving-license management
+              platform, an e-commerce system, a rehabilitation survey engine,
+              and a soccer tournament API.
             </p>
-            <div class="skills">
-              <span class="skill-tag">HTML5</span>
-              <span class="skill-tag">CSS3</span>
-              <span class="skill-tag">JavaScript</span>
-              <span class="skill-tag">Responsive Design</span>
-              <span class="skill-tag">Git</span>
+            <div class="about-social">
+              <a
+                href="https://github.com/MoathEssa"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="about-link"
+                >GitHub</a
+              >
+              <a
+                href="https://www.linkedin.com/in/moath-haimour-057282401/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="about-link"
+                >LinkedIn</a
+              >
             </div>
+            <div class="skills">
+              <span class="skill-tag">ASP.NET Core</span>
+              <span class="skill-tag">React</span>
+              <span class="skill-tag">TypeScript</span>
+              <span class="skill-tag">SQL Server</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">Azure</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">Clean Architecture</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills-section">
+      <div class="container">
+        <h2 class="section-title">Technical Skills</h2>
+        <div class="skills-grid">
+          <div class="skills-card">
+            <div class="skills-card-icon">⚙️</div>
+            <h3 class="skills-card-title">Backend</h3>
+            <ul class="skills-list">
+              <li>ASP.NET Core Web API</li>
+              <li>Clean Architecture</li>
+              <li>CQRS (MediatR)</li>
+              <li>Entity Framework Core</li>
+              <li>ADO.NET</li>
+              <li>RESTful API Design</li>
+            </ul>
+          </div>
+          <div class="skills-card">
+            <div class="skills-card-icon">🗄️</div>
+            <h3 class="skills-card-title">Databases</h3>
+            <ul class="skills-list">
+              <li>SQL Server</li>
+              <li>MongoDB</li>
+              <li>Stored Procedures &amp; TVPs</li>
+              <li>EF Core Migrations</li>
+              <li>Aggregation Pipelines</li>
+            </ul>
+          </div>
+          <div class="skills-card">
+            <div class="skills-card-icon">🎨</div>
+            <h3 class="skills-card-title">Frontend</h3>
+            <ul class="skills-list">
+              <li>React</li>
+              <li>TypeScript</li>
+              <li>JavaScript (ES6+)</li>
+              <li>HTML5 &amp; CSS3</li>
+              <li>Responsive Design</li>
+            </ul>
+          </div>
+          <div class="skills-card">
+            <div class="skills-card-icon">☁️</div>
+            <h3 class="skills-card-title">DevOps &amp; Cloud</h3>
+            <ul class="skills-list">
+              <li>Microsoft Azure</li>
+              <li>Docker</li>
+              <li>GitHub Actions (CI/CD)</li>
+              <li>Azure Container Apps</li>
+              <li>Bicep IaC</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -206,135 +295,209 @@
         </div>
 
         <div class="projects-grid" id="projectsGrid">
-          <!-- Project 1 -->
+          <!-- Project 1: Driving License Management System -->
           <div
             class="project-card reveal-card"
             data-category="web"
-            data-date="2024-01-15"
-            data-level="beginner"
-          >
-            <div class="project-image">
-              <img
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23764ba2;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad1)'/%3E%3Ctext x='50%25' y='50%25' font-size='100' text-anchor='middle' dy='.3em'%3E📋%3C/text%3E%3C/svg%3E"
-                alt="Task Management App"
-              />
-            </div>
-            <div class="project-content">
-              <span class="project-category-badge web">Web</span>
-              <h3 class="project-title">Task Management App</h3>
-              <p class="project-description">
-                A responsive task management application that helps users
-                organize their daily activities with features like task
-                prioritization, due dates, and progress tracking.
-              </p>
-              <div class="project-tech">
-                <span class="tech-tag">HTML</span>
-                <span class="tech-tag">CSS</span>
-                <span class="tech-tag">JavaScript</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="project-link">View Demo</a>
-                <a href="#" class="project-link">View Code</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 2 -->
-          <div
-            class="project-card reveal-card"
-            data-category="api"
-            data-date="2024-03-20"
+            data-date="2025-01-01"
             data-level="advanced"
           >
             <div class="project-image">
               <img
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='grad2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23764ba2;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23f093fb;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad2)'/%3E%3Ctext x='50%25' y='50%25' font-size='100' text-anchor='middle' dy='.3em'%3E🌤️%3C/text%3E%3C/svg%3E"
-                alt="Weather Dashboard"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='grad1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23764ba2;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad1)'/%3E%3Ctext x='50%25' y='50%25' font-size='100' text-anchor='middle' dy='.3em'%3E🪪%3C/text%3E%3C/svg%3E"
+                alt="Driving License Management System"
+              />
+            </div>
+            <div class="project-content">
+              <span class="project-category-badge web">Web + Desktop</span>
+              <h3 class="project-title">Driving License Management System</h3>
+              <p class="project-description">
+                Full-stack system handling applications, multi-stage testing,
+                issuance, renewal, detention, and international permits. Backend
+                uses Clean Architecture + CQRS; frontend built with React +
+                TypeScript. Also ships a WinForms desktop version.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">ASP.NET Core</span>
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">SQL Server</span>
+                <span class="tech-tag">Azure</span>
+                <span class="tech-tag">WinForms</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://github.com/MoathEssa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                  >View Code</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: E-Commerce Platform -->
+          <div
+            class="project-card reveal-card"
+            data-category="web"
+            data-date="2024-09-01"
+            data-level="advanced"
+          >
+            <div class="project-image">
+              <img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='grad2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2343e97b;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2338f9d7;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad2)'/%3E%3Ctext x='50%25' y='50%25' font-size='100' text-anchor='middle' dy='.3em'%3E🛒%3C/text%3E%3C/svg%3E"
+                alt="E-Commerce Platform"
+              />
+            </div>
+            <div class="project-content">
+              <span class="project-category-badge web">Web</span>
+              <h3 class="project-title">E-Commerce Platform</h3>
+              <p class="project-description">
+                Full-stack e-commerce platform with product management,
+                inventory, cart, multi-step checkout, and Stripe payments
+                (webhooks + refunds). Includes CJ Dropshipping integration and
+                an admin dashboard. Deployed on Azure with CI/CD.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">ASP.NET Core</span>
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">Stripe</span>
+                <span class="tech-tag">Azure</span>
+                <span class="tech-tag">GitHub Actions</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://github.com/MoathEssa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                  >View Code</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3: Family Rehabilitation Center Platform -->
+          <div
+            class="project-card reveal-card"
+            data-category="web"
+            data-date="2024-12-01"
+            data-level="advanced"
+          >
+            <div class="project-image">
+              <img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='grad3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f093fb;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23f5576c;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad3)'/%3E%3Ctext x='50%25' y='50%25' font-size='100' text-anchor='middle' dy='.3em'%3E🏥%3C/text%3E%3C/svg%3E"
+                alt="Family Rehabilitation Center Platform"
+              />
+            </div>
+            <div class="project-content">
+              <span class="project-category-badge web">Web</span>
+              <h3 class="project-title">
+                Family Rehabilitation Center Platform
+              </h3>
+              <p class="project-description">
+                Full-stack rehabilitation platform combining client case
+                management with a dynamic survey engine. Dual-database strategy
+                (SQL Server + MongoDB), JWT + Firebase OTP 2FA, drag-and-drop
+                survey builder, and bilingual Arabic/English support.
+              </p>
+              <div class="project-tech">
+                <span class="tech-tag">ASP.NET Core</span>
+                <span class="tech-tag">CQRS</span>
+                <span class="tech-tag">MongoDB</span>
+                <span class="tech-tag">React</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">Azure</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://github.com/MoathEssa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                  >View Code</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4: SoccerPro Tournament Management API -->
+          <div
+            class="project-card reveal-card"
+            data-category="api"
+            data-date="2025-03-01"
+            data-level="advanced"
+          >
+            <div class="project-image">
+              <img
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='grad4' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%234facfe;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2300f2fe;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad4)'/%3E%3Ctext x='50%25' y='50%25' font-size='100' text-anchor='middle' dy='.3em'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E"
+                alt="SoccerPro Tournament Management API"
               />
             </div>
             <div class="project-content">
               <span class="project-category-badge api">API</span>
-              <h3 class="project-title">Weather Dashboard</h3>
+              <h3 class="project-title">SoccerPro Tournament Management API</h3>
               <p class="project-description">
-                An interactive weather dashboard that displays current weather
-                conditions and forecasts for multiple locations with a clean,
-                modern interface and real-time data updates.
+                Backend for managing soccer tournaments, teams, players,
+                transfers, match scheduling, and match recording. Uses stored
+                procedures with TVPs for atomic batch events. 6-role RBAC with
+                JWT. Deployed on Azure Container Apps via Docker &amp; Bicep.
               </p>
               <div class="project-tech">
-                <span class="tech-tag">HTML</span>
-                <span class="tech-tag">CSS</span>
-                <span class="tech-tag">JavaScript</span>
-                <span class="tech-tag">API</span>
+                <span class="tech-tag">ASP.NET Core (.NET 9)</span>
+                <span class="tech-tag">CQRS</span>
+                <span class="tech-tag">SQL Server</span>
+                <span class="tech-tag">Docker</span>
+                <span class="tech-tag">Azure</span>
               </div>
               <div class="project-links">
-                <a href="#" class="project-link">View Demo</a>
-                <a href="#" class="project-link">View Code</a>
+                <a
+                  href="https://github.com/MoathEssa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                  >View Code</a
+                >
               </div>
             </div>
           </div>
 
-          <!-- Project 3 -->
+          <!-- Project 5: Bank System -->
           <div
             class="project-card reveal-card"
-            data-category="web"
-            data-date="2024-06-10"
+            data-category="tool"
+            data-date="2023-06-01"
             data-level="beginner"
           >
             <div class="project-image">
               <img
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='grad3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f093fb;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23667eea;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad3)'/%3E%3Ctext x='50%25' y='50%25' font-size='100' text-anchor='middle' dy='.3em'%3E💼%3C/text%3E%3C/svg%3E"
-                alt="Portfolio Website"
-              />
-            </div>
-            <div class="project-content">
-              <span class="project-category-badge web">Web</span>
-              <h3 class="project-title">Portfolio Website</h3>
-              <p class="project-description">
-                A responsive personal portfolio website showcasing projects and
-                skills with smooth animations, dark mode support, and an
-                interactive contact form.
-              </p>
-              <div class="project-tech">
-                <span class="tech-tag">HTML</span>
-                <span class="tech-tag">CSS</span>
-                <span class="tech-tag">JavaScript</span>
-              </div>
-              <div class="project-links">
-                <a href="#" class="project-link">View Demo</a>
-                <a href="#" class="project-link">View Code</a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Project 4 -->
-          <div
-            class="project-card reveal-card"
-            data-category="tool"
-            data-date="2024-09-05"
-            data-level="advanced"
-          >
-            <div class="project-image">
-              <img
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='grad4' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2343e97b;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%2338f9d7;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad4)'/%3E%3Ctext x='50%25' y='50%25' font-size='100' text-anchor='middle' dy='.3em'%3E🛠️%3C/text%3E%3C/svg%3E"
-                alt="Dev Toolkit"
+                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300'%3E%3Cdefs%3E%3ClinearGradient id='grad5' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23a18cd1;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23fbc2eb;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='300' fill='url(%23grad5)'/%3E%3Ctext x='50%25' y='50%25' font-size='100' text-anchor='middle' dy='.3em'%3E%F0%9F%8F%A6%3C/text%3E%3C/svg%3E"
+                alt="Bank System Console Application"
               />
             </div>
             <div class="project-content">
               <span class="project-category-badge tool">Tool</span>
-              <h3 class="project-title">Dev Toolkit</h3>
+              <h3 class="project-title">Bank System (Console App)</h3>
               <p class="project-description">
-                A collection of handy developer utilities including a color
-                picker, unit converter, and code formatter — all bundled in a
-                single offline-first browser app.
+                Console-based banking system in C++ using OOP principles.
+                Features client management (create, update, delete, search),
+                deposit and withdrawal transactions, and a file-storage
+                persistence layer for saving and retrieving client records.
               </p>
               <div class="project-tech">
-                <span class="tech-tag">HTML</span>
-                <span class="tech-tag">CSS</span>
-                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">C++</span>
+                <span class="tech-tag">OOP</span>
+                <span class="tech-tag">File I/O</span>
               </div>
               <div class="project-links">
-                <a href="#" class="project-link">View Demo</a>
-                <a href="#" class="project-link">View Code</a>
+                <a
+                  href="https://github.com/MoathEssa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="project-link"
+                  >View Code</a
+                >
               </div>
             </div>
           </div>
@@ -380,6 +543,39 @@
       </div>
     </section>
 
+    <!-- Education Section -->
+    <section id="education" class="education-section">
+      <div class="container">
+        <h2 class="section-title">Education</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">2022 &ndash; 2027</span>
+              <h3 class="timeline-title">
+                King Fahd University of Petroleum &amp; Minerals (KFUPM)
+              </h3>
+              <p class="timeline-sub">
+                Bachelor's Degree in Computer Science &mdash; Dhahran, Saudi
+                Arabia
+              </p>
+              <ul class="timeline-details">
+                <li>Focus on software development and system design</li>
+                <li>
+                  Built multiple full-stack projects: web applications, REST
+                  APIs, and system-based solutions
+                </li>
+                <li>
+                  Strong foundation in data structures, algorithms, and
+                  object-oriented programming
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- GitHub Repositories Section -->
     <section id="github" class="github-section">
       <div class="container">
@@ -398,7 +594,7 @@
         >
           ⚠️ Could not load repositories right now.
           <a
-            href="https://github.com/MOATHHAIMOUR"
+            href="https://github.com/MoathEssa"
             target="_blank"
             rel="noopener noreferrer"
             >View on GitHub →</a
@@ -422,15 +618,21 @@
             <div class="contact-details">
               <div class="contact-item">
                 <span class="contact-icon">📧</span>
-                <span>s202182130@kfupm.edu.sa</span>
+                <a href="mailto:moath.mahmoud.haimour@gmail.com"
+                  >moath.mahmoud.haimour@gmail.com</a
+                >
               </div>
               <div class="contact-item">
                 <span class="contact-icon">📱</span>
-                <span>+966 553573906</span>
+                <span>+966 59 695 2031</span>
               </div>
               <div class="contact-item">
                 <span class="contact-icon">📍</span>
-                <span>Dahran, Saudi Arabia</span>
+                <span>Dhahran, Saudi Arabia</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">🎓</span>
+                <span>KFUPM — Computer Science (2022&ndash;2027)</span>
               </div>
             </div>
           </div>
@@ -475,19 +677,35 @@
     <!-- Footer -->
     <footer class="footer">
       <div class="container">
-        <p>&copy; 2026 My Portfolio. All rights reserved.</p>
+        <p>&copy; 2026 Moath Haimour. All rights reserved.</p>
         <div class="footer-meta">
           <span id="visitCounter"></span>
           <span class="meta-sep" aria-hidden="true">·</span>
           <span>Time on site: <strong id="siteTimer">0:00</strong></span>
         </div>
         <div class="social-links">
-          <a href="#" aria-label="GitHub">GitHub</a>
-          <a href="#" aria-label="LinkedIn">LinkedIn</a>
-          <a href="#" aria-label="Twitter">Twitter</a>
+          <a
+            href="https://github.com/MoathEssa"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            >GitHub</a
+          >
+          <a
+            href="https://www.linkedin.com/in/moath-haimour-057282401/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            >LinkedIn</a
+          >
         </div>
       </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+      ↑
+    </button>
 
     <script src="js/script.js"></script>
   </body>

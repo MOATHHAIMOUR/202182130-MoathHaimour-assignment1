@@ -356,7 +356,7 @@ function sortProjects(criterion) {
 }
 
 // ===== GitHub Repositories =====
-const GITHUB_USERNAME = "MOATHHAIMOUR";
+const GITHUB_USERNAME = "MoathEssa";
 
 async function fetchGitHubRepos() {
   const loadingEl = document.getElementById("githubLoading");
@@ -476,10 +476,82 @@ if (visitCounterEl) {
 
 // ===== Console Welcome Message =====
 console.log(
-  "%c👋 Welcome to My Portfolio!",
+  "%c👋 Welcome to Moath Haimour's Portfolio!",
   "font-size: 20px; color: #667eea; font-weight: bold;",
 );
 console.log(
-  "%cInterested in the code? Check out my GitHub!",
+  "%cInterested in the code? Check out https://github.com/MoathEssa",
   "font-size: 14px; color: #764ba2;",
 );
+
+// ===== Typing Animation =====
+const roles = [
+  "Full Stack Developer",
+  "Backend Engineer",
+  "ASP.NET Core Specialist",
+  "React Developer",
+  "Azure & DevOps Enthusiast",
+];
+let roleIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+const typedEl = document.getElementById("typedText");
+
+function typeLoop() {
+  if (!typedEl) return;
+  const current = roles[roleIndex];
+  if (isDeleting) {
+    typedEl.textContent = current.slice(0, --charIndex);
+  } else {
+    typedEl.textContent = current.slice(0, ++charIndex);
+  }
+
+  let delay = isDeleting ? 50 : 90;
+
+  if (!isDeleting && charIndex === current.length) {
+    delay = 1800;
+    isDeleting = true;
+  } else if (isDeleting && charIndex === 0) {
+    isDeleting = false;
+    roleIndex = (roleIndex + 1) % roles.length;
+    delay = 300;
+  }
+  setTimeout(typeLoop, delay);
+}
+typeLoop();
+
+// ===== Hamburger Menu =====
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+
+if (hamburger && navLinks) {
+  hamburger.addEventListener("click", () => {
+    const isOpen = navLinks.classList.toggle("open");
+    hamburger.classList.toggle("active", isOpen);
+    hamburger.setAttribute("aria-expanded", String(isOpen));
+  });
+
+  // Close nav when a link is clicked
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("open");
+      hamburger.classList.remove("active");
+      hamburger.setAttribute("aria-expanded", "false");
+    });
+  });
+}
+
+// ===== Back To Top Button =====
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+  if (backToTop) {
+    backToTop.classList.toggle("visible", window.scrollY > 400);
+  }
+});
+
+if (backToTop) {
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
